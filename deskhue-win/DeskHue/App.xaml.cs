@@ -6,7 +6,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.ComponentModel;
+using System.Windows.Forms;
 using DeskHue.Entities;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
 
 namespace DeskHue
 {
@@ -36,7 +39,8 @@ namespace DeskHue
             {
                 settingsParingWindow = new SettingsParingWindow(ShowMainWindow);
                 settingsParingWindow.Show();
-            } else if (config.autobound)
+            }
+            else if (config.autobound)
             {
                 var ips = await HueDiscoveryService.discover();
                 HueIpAddress matchedIp = null;
@@ -64,7 +68,7 @@ namespace DeskHue
         {
             _notifyIcon.ContextMenuStrip =
                 new System.Windows.Forms.ContextMenuStrip();
-            _notifyIcon.ContextMenuStrip.Items.Add("MainWindow...").Click += (s, e) => ShowMainWindow();
+            _notifyIcon.ContextMenuStrip.Items.Add("DeskHue Settings...").Click += (s, e) => ShowMainWindow();
             _notifyIcon.ContextMenuStrip.Items.Add("Exit").Click += (s, e) => ExitApplication();
         }
 

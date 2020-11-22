@@ -35,7 +35,7 @@ namespace DeskHue
         public MainWindow()
         {
             InitializeComponent();
-
+            this.lblReachable.Content = "";
             this.hotkeyHandler = new HotkeyHandler();
             this.hotkeyHandler.adjustBrightness = (i) =>  AdjustBrightness(i);
         }
@@ -51,7 +51,6 @@ namespace DeskHue
             hotkeyHandler.OnClosed(e, this);
             base.OnClosed(e);
         }
-
 
         private void AdjustBrightness(Int32 offset, string lightId = null)
         {
@@ -88,7 +87,8 @@ namespace DeskHue
                 lstLights.Items.Add(light);
                 if (selected == light.id)
                 {
-                    lstLights.SelectedItem= light;
+                    lstLights.SelectedItem = light;
+                    updateSelectedLight(light);
                 }
             }
         }
@@ -102,6 +102,7 @@ namespace DeskHue
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             LoadLightList();
+            txtOffset.Text = ConfigService.loadConfig().offset.ToString();
         }
 
         private static readonly Regex Numericregex = new Regex("[^0-9.-]+"); //regex that matches disallowed text
@@ -136,6 +137,31 @@ namespace DeskHue
             {
                 LightEntity light = (LightEntity) lstLights.SelectedItems[0];
                 AdjustBrightness(Int32.Parse(txtOffset.Text)*-1, light.id);
+            }
+        }
+
+        private void LstLights_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Count == 1)
+            {
+                var light = (LightEntity) e.AddedItems[0];
+                updateSelectedLight(light);
+            }
+        }
+
+        private void updateSelectedLight(LightEntity light)
+        {
+            if (light != null)
+            {
+                cmdUp.IsEnabled = light.state.reachable;
+                cmdDown.IsEnabled = light.state.reachable;
+                lblReachable.Content = light.state.reachable ? "Light is reachable!" : "Light NOT reachable";
+            }
+            else
+            {
+                cmdUp.IsEnabled = false;
+                cmdDown.IsEnabled = false;
+                lblReachable.Content = "";
             }
         }
     }
