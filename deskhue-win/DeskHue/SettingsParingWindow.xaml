@@ -1,0 +1,18 @@
+﻿<Window x:Class="DeskHue.SettingsParingWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:DeskHue"
+        mc:Ignorable="d"
+        Title="SettingsParingWindow" Height="355" Width="281" Closing="Window_Closing">
+    <Grid>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="304" Margin="10,10,0,0" Stroke="Black" VerticalAlignment="Top" Width="252"/>
+        <RadioButton x:Name="optDiscoverAuto" Content="Discover automatically" HorizontalAlignment="Left" Margin="30,26,0,0" VerticalAlignment="Top" IsChecked="True" Checked="OptDiscoverAuto_Checked"/>
+        <RadioButton x:Name="optDiscoverBind" Content="Bind to IP" HorizontalAlignment="Left" Margin="30,55,0,0" VerticalAlignment="Top" Checked="OptDiscoverBind_Checked"/>
+        <ListBox x:Name="lstHueIps" HorizontalAlignment="Left" Height="100" Margin="30,90,0,0" VerticalAlignment="Top" Width="214"/>
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Margin="30,214,0,0" TextWrapping="Wrap" Text="First, press the button on the Hue hub. Then, press the pair button below." VerticalAlignment="Top" Height="39" Width="214"/>
+        <Button x:Name="btnPair" Content="Pair" HorizontalAlignment="Left" Margin="93,273,0,0" VerticalAlignment="Top" Width="75" Click="BtnPair_Click"/>
+
+    </Grid>
+</Window>
